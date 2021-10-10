@@ -8,6 +8,10 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @State private var leftDice = 1
+    @State private var rightDice = 1
+    
     var body: some View {
         ZStack {
             Image("background")
@@ -18,12 +22,15 @@ struct ContentView: View {
                 Image("diceeLogo")
                 Spacer()
                 HStack {
-                    DiceView(n: 1)
-                    DiceView(n: 2)
+                    DiceView(n: leftDice)
+                    DiceView(n: rightDice)
                 }
                 .padding(.horizontal)
                 Spacer()
-                Button(action: {}) {
+                Button(action: {
+                    self.leftDice = Int.random(in: 1...6)
+                    self.rightDice = Int.random(in: 1...6)
+                }) {
                     Text("Roll")
                         .font(.system(size: 50))
                         .fontWeight(.heavy)
@@ -31,6 +38,7 @@ struct ContentView: View {
                         .padding(.horizontal)
                 }
                 .background(Color.red)
+                .padding(.bottom)
                 
             }
         }
@@ -45,7 +53,7 @@ struct ContentView_Previews: PreviewProvider {
 
 struct DiceView: View {
     
-    let n: Int
+    var n: Int
     
     var body: some View {
         Image("dice\(n)")
